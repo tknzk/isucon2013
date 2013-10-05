@@ -27,16 +27,12 @@ body {
 <li><a href="<?php echo uri_for('/') ?>">Home</a></li>
 <?php if (isset($user) && $user) { ?>
 <li><a href="<?php echo uri_for('/mypage') ?>">MyPage</a></li>
-<li>
-  <form action="<?php echo uri_for('/signout') ?>" method="post">
-    <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
-    <input type="submit" value="SignOut" >
-  </form>
-</li>
 <?php } else { ?>
 <li>
   <form action="<?php echo uri_for('/signout') ?>" method="post">
+<?php if (isset($session['token'])) : ?>
     <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
+<?php endif; ?>
     <input type="submit" value="SignOut" >
   </form>
 </li>
