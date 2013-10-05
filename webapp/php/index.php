@@ -256,27 +256,27 @@ dispatch_get('/memo/:id', function() {
 
     // APC cache
 
-    $apcKey = "memo-" . params('id');
+    //$apcKey = "memo-" . params('id');
 
-    if (apc_exists($apcKey)) {
+    //if (apc_exists($apcKey)) {
 
-        $memo = apc_fetch($apcKey);
+    //    $memo = apc_fetch($apcKey);
 
-    } else {
+    //} else {
 
 
-        if ($memo = apc_fetch($apcKey)) {
+    //    if ($memo = apc_fetch($apcKey)) {
 
-        } else {
+    //    } else {
             $stmt = $db->prepare('SELECT id, user, content, is_private, created_at, updated_at FROM memos WHERE id = :id');
             $stmt->bindValue(':id', params('id'));
             $stmt->execute();
             $memo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            apc_store($apcKey, $memo);
-        }
+    //        apc_store($apcKey, $memo);
+    //    }
 
-    }
+    //}
 
     if (!$memo) {
         return halt(404);
