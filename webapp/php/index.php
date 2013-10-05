@@ -315,11 +315,11 @@ dispatch_post('/memo', function() {
     $content = $_POST["content"];
     $is_private = $_POST["is_private"] != 0 ? 1 : 0;
 
-    $stmt = $db->prepare('INSERT INTO memos (user, content, is_private, created_at) VALUES (:user, :content, :is_private, now())');
+    $stmt = $db->prepare('INSERT INTO memos (user, content, is_private, username, created_at) VALUES (:user, :content, :is_private, :username, now())');
     $stmt->bindValue(':user', $user['id']);
     $stmt->bindValue(':content', $content);
     $stmt->bindValue(':is_private', $is_private);
-    //$stmt->bindValue(':username', $user['username']);
+    $stmt->bindValue(':username', $user['username']);
     $stmt->execute();
 
     $apcKey = "usermemo-" . $user['id'];
