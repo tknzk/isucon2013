@@ -319,6 +319,7 @@ dispatch_post('/memo', function() {
     $stmt->bindValue(':user', $user['id']);
     $stmt->bindValue(':content', $content);
     $stmt->bindValue(':is_private', $is_private);
+    $stmt->bindValue(':username', $user['username']);
     $stmt->execute();
 
     $apcKey = "usermemo-" . $user['id'];
@@ -389,11 +390,11 @@ dispatch_get('/memo/:id', function() {
 
     //}
 
-    $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-    $stmt->bindValue(':id', $memo['user']);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $memo['username'] = $row['username'];
+    //$stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
+    //$stmt->bindValue(':id', $memo['user']);
+    //$stmt->execute();
+    //$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //$memo['username'] = $row['username'];
     /**
      */
 
