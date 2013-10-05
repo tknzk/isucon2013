@@ -319,7 +319,7 @@ dispatch_post('/memo', function() {
     $stmt->bindValue(':user', $user['id']);
     $stmt->bindValue(':content', $content);
     $stmt->bindValue(':is_private', $is_private);
-    $stmt->bindValue(':username', $user['username']);
+    //$stmt->bindValue(':username', $user['username']);
     $stmt->execute();
 
     $apcKey = "usermemo-" . $user['id'];
