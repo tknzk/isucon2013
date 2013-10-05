@@ -32,6 +32,8 @@ body {
   <form action="<?php echo uri_for('/signout') ?>" method="post">
 <?php if (isset($session['token'])) : ?>
     <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
+<?php else : ?>
+    <input type="hidden" name="sid" value="">
 <?php endif; ?>
     <input type="submit" value="SignOut" >
   </form>
