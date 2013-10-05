@@ -133,14 +133,15 @@ dispatch_get('/', function() {
     $stmt->execute();
     $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach($memos as &$memo) {
-        $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-        $stmt->bindValue(':id', $memo["user"]);
-        $stmt->execute();
+    // username いれた
+    //foreach($memos as &$memo) {
+    //    $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
+    //    $stmt->bindValue(':id', $memo["user"]);
+    //    $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $memo["username"] = $result["username"];
-    }
+    //    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //    $memo["username"] = $result["username"];
+    //}
 
     set('memos', $memos);
     set('page', 0);
