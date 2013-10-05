@@ -9,7 +9,7 @@ function configure()
 {
     option('base_uri', '');
     option('session', 'isucon_session');
- 
+
     $env = getenv('ISUCON_ENV');
     if (!$env) $env = 'local';
 
@@ -188,7 +188,7 @@ dispatch_post('/signout', function() {
     session_regenerate_id(TRUE);
     unset($_SESSION['user_id']);
     unset($_SESSION['token']);
-    
+
     return redirect('/');
 });
 
@@ -250,13 +250,28 @@ dispatch_post('/memo', function() {
 });
 
 dispatch_get('/memo/:id', function() {
-    $db = option('db_conn');
 
-    $user = get('user');
-    $stmt = $db->prepare('SELECT id, user, content, is_private, created_at, updated_at FROM memos WHERE id = :id');
-    $stmt->bindValue(':id', params('id'));
-    $stmt->execute();
-    $memo = $stmt->fetch(PDO::FETCH_ASSOC);
+    // APC cache
+
+    $apcKey = "memo-" . params('id');
+
+    if (apc_exists($apcKey)) {
+
+        $memo = apc_fetch($apcKey);
+
+    } else {
+
+        $db = option('db_conn');
+
+        $user = get('user');
+        $stmt = $db->prepare('SELECT id, user, content, is_private, created_at, updated_at FROM memos WHERE id = :id');
+        $stmt->bindValue(':id', params('id'));
+        $stmt->execute();
+        $memo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        apc_store($apcKey, $memo);
+
+    }
 
     if (!$memo) {
         return halt(404);
@@ -269,14 +284,14 @@ dispatch_get('/memo/:id', function() {
     }
 
     $memo['content_html'] = markdown($memo['content']);
-    
+
     $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
     $stmt->bindValue(':id', $memo['user']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $memo['username'] = $row['username'];
 
-    
+
     if ($user && $user['id'] == $memo['user']) {
         $cond = "";
     }
@@ -302,7 +317,7 @@ dispatch_get('/memo/:id', function() {
 
 
         }
-    }   
+    }
 
     set('memo', $memo);
     set('older', $older);
