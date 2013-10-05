@@ -27,7 +27,6 @@ body {
 <li><a href="<?php echo uri_for('/') ?>">Home</a></li>
 <?php if (isset($user) && $user) { ?>
 <li><a href="<?php echo uri_for('/mypage') ?>">MyPage</a></li>
-<?php } else { ?>
 <li>
   <form action="<?php echo uri_for('/signout') ?>" method="post">
 <?php if (isset($session['token'])) : ?>
@@ -38,6 +37,7 @@ body {
     <input type="submit" value="SignOut" >
   </form>
 </li>
+<?php } else { ?>
 <li><a href="<?php echo uri_for('/signin') ?>">SignIn</a></li>
 <?php } ?>
 </ul>
