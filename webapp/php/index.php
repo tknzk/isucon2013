@@ -196,49 +196,50 @@ dispatch_post('/signin', function() {
 
     // APC cache
 
-    $apcKey = "username-" . $_POST['username'];
+    //$apcKey = "username-" . $_POST['username'];
 
-    if (apc_exists($apcKey)) {
+    //if (apc_exists($apcKey)) {
 
-        $user = apc_fetch($apcKey);
+    //    $user = apc_fetch($apcKey);
 
-    } else {
+    //} else {
 
-        if ($user = apc_fetch($apcKey)) {
+    //    if ($user = apc_fetch($apcKey)) {
 
-        } else {
+    //    } else {
 
-            $db = option('db_conn');
+    //        $db = option('db_conn');
 
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+    //        $username = $_POST['username'];
+    //        $password = $_POST['password'];
 
-            $stmt = $db->prepare('SELECT id, username, password, salt FROM users WHERE username = :username');
-            $stmt->bindValue(':username', $username);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    //        $stmt = $db->prepare('SELECT id, username, password, salt FROM users WHERE username = :username');
+    //        $stmt->bindValue(':username', $username);
+    //        $stmt->execute();
+    //        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user) {
-                apc_store($apcKey, $user);
-            }
-        }
-    }
+    //        if ($user) {
+    //            apc_store($apcKey, $user);
+    //        }
+    //    }
+    //}
 
-    if ($user && $user['password'] == hash('sha256', $user['salt'] . $password, FALSE)) {
-        session_regenerate_id(TRUE);
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['token'] = hash('sha256', rand(), FALSE);
-        $stmt = $db->prepare('UPDATE users SET last_access=now() WHERE id = :id');
-        $stmt->bindValue(':id', $user['id']);
-        $stmt->execute();
+    //if ($user && $user['password'] == hash('sha256', $user['salt'] . $password, FALSE)) {
+    //    session_regenerate_id(TRUE);
+    //    $_SESSION['user_id'] = $user['id'];
+    //    $_SESSION['token'] = hash('sha256', rand(), FALSE);
+    //    $stmt = $db->prepare('UPDATE users SET last_access=now() WHERE id = :id');
+    //    $stmt->bindValue(':id', $user['id']);
+    //    $stmt->execute();
 
-        return redirect('/mypage');
+    //    return redirect('/mypage');
 
-    } else {
-        return render('signin.html.php');
-    }
+    //} else {
+    //    return render('signin.html.php');
+    //}
 
     /**
+     */
     $db = option('db_conn');
 
     $username = $_POST['username'];
@@ -262,7 +263,6 @@ dispatch_post('/signin', function() {
     } else {
         return render('signin.html.php');
     }
-     */
 });
 
 dispatch_get('/mypage', function() {
