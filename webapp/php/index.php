@@ -273,26 +273,34 @@ dispatch_get('/mypage', function() {
 
     // APC cache
 
-    //$apcKey = "user-" . $user['id'];
+    $apcKey = "usermemo-" . $user['id'];
 
-    //if (apc_exists($apcKey)) {
+    if (apc_exists($apcKey)) {
 
-    //    $memos = apc_fetch($apcKey);
+        $memos = apc_fetch($apcKey);
 
-    //} else {
+    } else {
 
-    //    if ($memo = apc_fetch($apcKey)) {
+        if ($memo = apc_fetch($apcKey)) {
 
-    //    } else {
+        } else {
 
+          $stmt = $db->prepare('SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
+          $stmt->bindValue(':user', $user['id']);
+          $stmt->execute();
+          $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            apc_store($apcKey, $memos);
+        }
+    }
+
+            /**
             $stmt = $db->prepare('SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
             $stmt->bindValue(':user', $user['id']);
             $stmt->execute();
             $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+             */
 
-    //        apc_store($apcKey, $memos);
-    //    }
-    //}
 
     set('memos', $memos);
     return html('mypage.html.php');
@@ -311,11 +319,11 @@ dispatch_post('/memo', function() {
     $stmt->bindValue(':is_private', $is_private);
     $stmt->execute();
 
-    //$apcKey = "user-" . $user['id'];
+    $apcKey = "usermemo-" . $user['id'];
 
-    //if (apc_exists($apcKey)) {
-    //    apc_delete($apcKey);
-    //}
+    if (apc_exists($apcKey)) {
+        apc_delete($apcKey);
+    }
 
     $memo_id = $db->lastInsertId();
     return redirect('/memo/' . $memo_id);
