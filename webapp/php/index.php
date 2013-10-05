@@ -251,6 +251,8 @@ dispatch_post('/memo', function() {
 
 dispatch_get('/memo/:id', function() {
 
+        $db = option('db_conn');
+
     // APC cache
 
     $apcKey = "memo-" . params('id');
@@ -261,7 +263,6 @@ dispatch_get('/memo/:id', function() {
 
     } else {
 
-        $db = option('db_conn');
 
         $user = get('user');
         $stmt = $db->prepare('SELECT id, user, content, is_private, created_at, updated_at FROM memos WHERE id = :id');
