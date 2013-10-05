@@ -163,14 +163,15 @@ dispatch_get('/recent/:page', function(){
     $stmt->execute();
     $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach($memos as &$memo) {
-        $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-        $stmt->bindValue(':id', $memo["user"]);
-        $stmt->execute();
+    // username は memos にある
+    //foreach($memos as &$memo) {
+    //    $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
+    //    $stmt->bindValue(':id', $memo["user"]);
+    //    $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $memo["username"] = $result["username"];
-    }
+    //    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //    $memo["username"] = $result["username"];
+    //}
 
     set('memos', $memos);
     set('page', $page);
@@ -288,7 +289,7 @@ dispatch_get('/mypage', function() {
 
         } else {
 
-          $stmt = $db->prepare('SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
+          $stmt = $db->prepare('SELECT id, content, is_private,username , created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
           $stmt->bindValue(':user', $user['id']);
           $stmt->execute();
           $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
