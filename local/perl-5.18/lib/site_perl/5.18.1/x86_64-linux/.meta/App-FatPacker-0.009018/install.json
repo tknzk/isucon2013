@@ -1,0 +1,1 @@
+{"pathname":"E/ET/ETHER/App-FatPacker-0.009018.tar.gz","target":"App::FatPacker","name":"App::FatPacker","version":"0.009018","dist":"App-FatPacker-0.009018","provides":{"App::FatPacker":{"file":"lib/App/FatPacker.pm","version":"0.009018"},"App::FatPacker::Trace":{"file":"lib/App/FatPacker/Trace.pm"}}}

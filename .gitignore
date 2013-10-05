@@ -1,0 +1,6 @@
+.bash*
+.subversion
+.ssh
+.vim*
+.kshrc
+.lesshst

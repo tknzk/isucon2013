@@ -1,0 +1,7 @@
+Gem::Specification.new do |s|
+  s.name = "rake"
+  s.version = "0.9.6"
+  s.summary = "This rake is bundled with Ruby"
+  s.executables = ["rake"]
+  s.files = ["rake.rb", "rake/clean.rb", "rake/win32.rb", "rake/dsl_definition.rb", "rake/cloneable.rb", "rake/file_list.rb", "rake/packagetask.rb", "rake/runtest.rb", "rake/rake_test_loader.rb", "rake/task_manager.rb", "rake/task_argument_error.rb", "rake/testtask.rb", "rake/invocation_exception_mixin.rb", "rake/promise.rb", "rake/file_utils_ext.rb", "rake/invocation_chain.rb", "rake/file_task.rb", "rake/thread_pool.rb", "rake/early_time.rb", "rake/application.rb", "rake/backtrace.rb", "rake/phony.rb", "rake/thread_history_display.rb", "rake/loaders/makefile.rb", "rake/file_creation_task.rb", "rake/classic_namespace.rb", "rake/private_reader.rb", "rake/gempackagetask.rb", "rake/trace_output.rb", "rake/rdoctask.rb", "rake/multi_task.rb", "rake/ruby182_test_unit_fix.rb", "rake/task.rb", "rake/pseudo_status.rb", "rake/task_arguments.rb", "rake/file_utils.rb", "rake/version.rb", "rake/rake_module.rb", "rake/name_space.rb", "rake/default_loader.rb", "rake/rule_recursion_overflow_error.rb", "rake/tasklib.rb", "rake/alt_system.rb", "rake/ext/core.rb", "rake/ext/time.rb", "rake/ext/module.rb", "rake/ext/string.rb", "rake/pathmap.rb", "rake/contrib/sshpublisher.rb", "rake/contrib/rubyforgepublisher.rb", "rake/contrib/sys.rb", "rake/contrib/publisher.rb", "rake/contrib/compositepublisher.rb", "rake/contrib/ftptools.rb"]
+end
