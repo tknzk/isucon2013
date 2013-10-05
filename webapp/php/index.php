@@ -289,7 +289,7 @@ dispatch_get('/mypage', function() {
 
         } else {
 
-          $stmt = $db->prepare('SELECT id, content, is_private,username , created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
+          $stmt = $db->prepare('SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user = :user ORDER BY created_at DESC');
           $stmt->bindValue(':user', $user['id']);
           $stmt->execute();
           $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
