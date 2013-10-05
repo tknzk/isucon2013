@@ -194,6 +194,7 @@ dispatch_post('/signout', function() {
 
 dispatch_post('/signin', function() {
 
+    $db = option('db_conn');
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -212,7 +213,6 @@ dispatch_post('/signin', function() {
 
         } else {
 
-            $db = option('db_conn');
 
             $stmt = $db->prepare('SELECT id, username, password, salt FROM users WHERE username = :username');
             $stmt->bindValue(':username', $username);
