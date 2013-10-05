@@ -221,8 +221,8 @@ dispatch_post('/signin', function() {
 
             if ($user) {
                 apc_store($apcKey, $user);
-                $apcIdKey = "username-id-" . $user['id'];
-                apc_store($apcIdKey, $user);
+                //$apcIdKey = "username-id-" . $user['id'];
+                //apc_store($apcIdKey, $user);
             }
         }
     }
@@ -372,29 +372,29 @@ dispatch_get('/memo/:id', function() {
 
     $memo['content_html'] = markdown($memo['content']);
 
-    $apcIdKey = "username-id-" . $memo['id'];
-    if (apc_exists($apcIdKey)) {
+    //$apcIdKey = "username-id-" . $memo['id'];
+    //if (apc_exists($apcIdKey)) {
 
-        $row = apc_fetch($apcIdKey);
+    //    $row = apc_fetch($apcIdKey);
 
-    } else {
+    //} else {
+
+    //$stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
+    //$stmt->bindValue(':id', $memo['user']);
+    //$stmt->execute();
+    //$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //$memo['username'] = $row['username'];
+
+    //apc_store($apcIdKey, $row);
+
+    //}
 
     $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
     $stmt->bindValue(':id', $memo['user']);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $memo['username'] = $row['username'];
-
-    apc_store($apcIdKey, $row);
-
-    }
-
     /**
-    $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-    $stmt->bindValue(':id', $memo['user']);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $memo['username'] = $row['username'];
      */
 
 
