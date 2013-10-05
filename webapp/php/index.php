@@ -93,8 +93,6 @@ function filter_get_user($route) {
 
     if ($user) {
         header('Cache-Control: private');
-    } else {
-        return redirect('/');
     }
 }
 
