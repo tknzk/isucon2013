@@ -30,7 +30,7 @@ body {
 <li>
   <form action="<?php echo uri_for('/signout') ?>" method="post">
     <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
-    <input type="submit" value="SignOut">
+    <input value="SignOut" type="submit">
   </form>
 </li>
 <?php } else { ?>
