@@ -30,10 +30,16 @@ body {
 <li>
   <form action="<?php echo uri_for('/signout') ?>" method="post">
     <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
-    <input value="SignOut" type="submit">
+    <input type="submit" value="SignOut" >
   </form>
 </li>
 <?php } else { ?>
+<li>
+  <form action="<?php echo uri_for('/signout') ?>" method="post">
+    <input type="hidden" name="sid" value="<?php echo $session["token"] ?>">
+    <input type="submit" value="SignOut" >
+  </form>
+</li>
 <li><a href="<?php echo uri_for('/signin') ?>">SignIn</a></li>
 <?php } ?>
 </ul>
